@@ -1,0 +1,131 @@
+package com.springassignment2;
+
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+public class Question {
+	private int questionId;
+	private String question;
+     //private List<String> answer;
+   //  private Set<String> answer;
+   private Map<Integer, String>  answer;
+     
+	public int getQuestionId() {
+		return questionId;
+	}
+	public void setQuestionId(int questionId) {
+		this.questionId = questionId;
+	}
+	public String getQuestion() {
+		return question;
+	}
+	public void setQuestion(String question) {
+		this.question = question;
+	}
+	
+	/*
+	public List<String> getAnswer() {
+		return answer;
+	}
+	public void setAnswer(List<String> answer) {
+		this.answer = answer;
+	}
+    
+	
+	public Set<String> getAnswer() {
+		return answer;
+	}
+	public void setAnswer(Set<String> answer) {
+		this.answer = answer;
+	}
+	*/
+	
+	public void print() {
+		System.out.println("QuestionId: "+getQuestionId()+", Question: "+getQuestion()+", Answer:"+getAnswer());
+	}
+	public Map<Integer, String> getAnswer() {
+		return answer;
+	}
+	public void setAnswer(Map<Integer, String> answer) {
+		this.answer = answer;
+	}
+	
+}
+
+
+
+
+XML
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN"
+        "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+
+ <beans>
+ 	<bean id="question" class="com.springassignment2.Question">
+ 			<property name="questionId" value="11"/>
+ 			<property name="question" value="India's top 3 cities?"/>
+ 			
+ 			
+ 			<!-- 
+ 				<property name="answer">
+ 			<list>
+ 			     <value>"Mumbai"</value> 
+ 			     <value>"Bengaluru"</value>    
+  			     <value>"Delhi"</value>    
+ 			</list>
+ 			</property>
+ 			 -->
+ 			 
+ 			 <!-- 
+ 			 	<property name="answer">
+ 			<set>
+ 			     <value>"Mumbai"</value> 
+ 			     <value>"Bengaluru"</value>    
+  			     <value>"Delhi"</value>    
+ 			</set>
+ 			</property> 
+ 			  -->
+ 			  
+ 			  <property name="answer">
+ 			 <map>
+  			    <entry key="1" value="Mumbai"/>		 
+   			    <entry key="2" value="Bengaluru"/>		 
+   			    <entry key="3" value="Delhi"/>		 
+ 			 
+ 			 </map>
+   
+ 			
+ 			</property>
+ 		
+ 	</bean>
+ 	
+ 
+ </beans>
+
+
+
+
+
+TEST 
+
+
+
+package com.springassignment2;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+public class Test {
+	public static void main(String[] args) {
+		
+		ApplicationContext context=new ClassPathXmlApplicationContext("spring.xml");
+		Question question=(Question) context.getBean("question");
+		question.print();
+	}
+
+}
+
+
+
+

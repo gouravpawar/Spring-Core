@@ -1,0 +1,194 @@
+package com.springAssingment;
+
+public class Address {
+	
+	private String street;
+	private String city;
+	private String state;
+	private int zip;
+	private String country;
+	
+	public Address(String street, String city, String state, int zip, String country) {
+		super();
+		this.street = street;
+		this.city = city;
+		this.state = state;
+		this.zip = zip;
+		this.country = country;
+	}
+	
+	public String getStreet() {
+		return street;
+	}
+	public void setStreet(String street) {
+		this.street = street;
+	}
+	public void setCity(String city) {
+		this.city = city;
+	}
+	public void setState(String state) {
+		this.state = state;
+	}
+	public void setZip(int zip) {
+		this.zip = zip;
+	}
+	public void setCountry(String country) {
+		this.country = country;
+	}
+	public String getCity() {
+		return city;
+	}
+	public String getState() {
+		return state;
+	}
+	public int getZip() {
+		return zip;
+	}
+	public String getCountry() {
+		return country;
+	}
+	
+	 
+}
+-----------------------------------------------------------------------------------------------------
+
+//CUSTOMER
+
+
+package com.springAssingment;
+
+public class Customer {
+	
+	private int Customerid;
+	private String CustomerName;
+	private int CustomerContact;
+	private String CustomerAddress;
+	private Address address;
+	public Customer(int customerid, String customerName, int customerContact, String customerAddress) {
+		super();
+		Customerid = customerid;
+		CustomerName = customerName;
+		CustomerContact = customerContact;
+		CustomerAddress = customerAddress;
+	}
+	
+
+	public Address getAddress() {
+		return address;
+	}
+
+
+	public void setCustomerid(int customerid) {
+		Customerid = customerid;
+	}
+
+
+	public void setCustomerName(String customerName) {
+		CustomerName = customerName;
+	}
+
+
+	public void setCustomerContact(int customerContact) {
+		CustomerContact = customerContact;
+	}
+
+
+	public void setCustomerAddress(String customerAddress) {
+		CustomerAddress = customerAddress;
+	}
+
+
+	public void setAddress(Address address) {
+		this.address = address;
+	}
+
+
+	public int getCustomerid() {
+		return Customerid;
+	}
+	public String getCustomerName() {
+		return CustomerName;
+	}
+	public int getCustomerContact() {
+		return CustomerContact;
+	}
+	public String getCustomerAddress() {
+		return CustomerAddress;
+	}
+	
+	public void details() {
+		System.out.println("CustomerId :"+getCustomerid()+" CustomerName :"+getCustomerName()+" CustomerContact: "+getCustomerContact()+" CustomerAddress:"+getCustomerAddress());
+		System.out.println("Full Address:: "+getAddress().getStreet()+", "+getAddress().getCity()+", "+getAddress().getState()+", "+getAddress().getZip()+", "+getAddress().getCountry());
+
+	}
+
+}
+
+--------------------------------------------------------------------------------------------
+
+
+
+XML
+
+
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN"
+        "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+    <beans >
+            <bean id="customer" class="com.springAssingment.Customer">
+    		<constructor-arg index="0" value="123"/>
+    		<constructor-arg index="1" value="Gourav"/>
+    		<constructor-arg index="2" value="5432"/>
+    		<constructor-arg index="3" value="Pune"/>
+     		<constructor-arg index="4" ref="add"/>
+    </bean>
+           <bean id="add" class="com.springAssingment.Address">
+             <constructor-arg index="0" value="	MH 15"/>
+    		<constructor-arg index="1" value="Pune"/>
+    		<constructor-arg index="2" value="Maharashtra"/>
+    		<constructor-arg index="3" value="411060"/>
+     		<constructor-arg index="4" ref="India"/> 
+           </bean>
+    
+    			<!-- By using setter -->
+    
+    <!-- 
+    		<bean id="customer" class="com.springAssingment.Customer">
+   			 <property name="Customerid" value="101"/>
+   		      <property name="CustomerName" value="shyam"/>
+		 	  <property name="CustomerContact" value="93746838"/>
+   		      <property name="CustomerAddress" value="Nashik"/>
+   			<property  name="address" ref="add"/>   
+   		</bean>
+   		 <bean id="add" class="com.springAssingment.Address">
+   		 		    <property name="street" value="MH12"/>
+   		 	       	<property name="city" value="Pune"/>
+    		 		<property name="state" value="Maharashtra"/>
+    		 		<property name="zip" value="411060"/>
+    		 		<property name="country" value="India"/>
+   		 	    
+   		 </bean>
+     -->
+   		 
+     </beans>
+
+------------------------------------------------------------------------------------
+
+//TEST 
+
+
+
+package com.springAssingment;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+public class Test {
+	public static void main(String[] args) {
+		
+		ApplicationContext context=new ClassPathXmlApplicationContext("spring.xml");
+		Customer customer= (Customer) context.getBean("customer");
+	    customer.details();
+	}
+
+}
